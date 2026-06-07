@@ -1,0 +1,17 @@
+{
+  "name": "M&M Super Mart POS + ERP",
+  "short_name": "M&M POS",
+  "description": "Grocery supermarket POS, inventory, employee management, and ERP system.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#047857",
+  "icons": [
+    {
+      "src": "/mm-logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

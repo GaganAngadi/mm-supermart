@@ -1,0 +1,23 @@
+M&M POS - Run on a New Windows PC
+
+Recommended method:
+1. Extract this zip file.
+2. Double-click "M&M POS Setup.exe".
+3. Follow the installer.
+4. Start the app from the desktop shortcut or Start Menu shortcut named "M&M POS".
+
+Portable method:
+1. Extract this zip file.
+2. Double-click "M&M POS Portable.exe".
+3. Use this if you do not want to install the app.
+
+Important notes:
+- This package is for Windows 64-bit PCs.
+- No Node.js, npm, MySQL, or developer setup is needed for the installer/portable app.
+- If Windows SmartScreen appears, click "More info", then "Run anyway".
+- Keep the extracted folder in a normal location such as Desktop or Documents.
+
+Files included:
+- M&M POS Setup.exe: normal installer
+- M&M POS Portable.exe: runs without installation
+- RUN_ON_NEW_PC.txt: these instructions

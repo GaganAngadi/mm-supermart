@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 42 28% 96%;
+  --foreground: 219 30% 13%;
+  --card: 0 0% 100%;
+  --card-foreground: 219 30% 13%;
+  --muted: 218 24% 93%;
+  --muted-foreground: 218 11% 43%;
+  --primary: 164 84% 27%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 18 88% 56%;
+  --accent-foreground: 22 38% 10%;
+  --border: 220 18% 86%;
+  --input: 220 18% 86%;
+  --ring: 164 84% 27%;
+}
+
+.dark {
+  --background: 224 24% 9%;
+  --foreground: 210 20% 94%;
+  --card: 224 22% 12%;
+  --card-foreground: 210 20% 94%;
+  --muted: 224 18% 17%;
+  --muted-foreground: 218 11% 68%;
+  --primary: 166 72% 43%;
+  --primary-foreground: 224 24% 8%;
+  --accent: 18 88% 58%;
+  --accent-foreground: 25 36% 8%;
+  --border: 224 15% 24%;
+  --input: 224 15% 24%;
+  --ring: 166 72% 43%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% -8%, hsl(var(--primary) / 0.1), transparent 30rem),
+    radial-gradient(circle at 92% 4%, hsl(var(--accent) / 0.1), transparent 26rem),
+    linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted) / 0.65));
+  color: hsl(var(--foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+  min-height: 100vh;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition-duration: 180ms;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+tbody tr {
+  transition: background-color 180ms ease;
+}
+
+tbody tr:hover {
+  background: hsl(var(--muted) / 0.55);
+}
+
+::selection {
+  background: hsl(var(--primary) / 0.18);
+}
+
+.surface-panel {
+  background: linear-gradient(180deg, hsl(var(--card) / 0.96), hsl(var(--card) / 0.9));
+  box-shadow: 0 18px 48px hsl(224 35% 18% / 0.08);
+}
+
+.hairline-grid {
+  background-image:
+    linear-gradient(hsl(var(--border) / 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--border) / 0.45) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.page-title {
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+@media print {
+  aside,
+  header,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  main,
+  .app-grid {
+    display: block !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+  }
+}

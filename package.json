@@ -1,0 +1,135 @@
+{
+  "name": "mm-supermart-erp",
+  "version": "1.0.0",
+  "description": "M&M POS desktop retail billing and inventory software",
+  "author": "M&M SuperMart",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "node node_modules/concurrently/dist/bin/concurrently.js -k \"npm:dev:web\" \"npm:dev:api\" \"npm:electron:dev\"",
+    "dev:webapi": "node node_modules/npm-run-all/bin/npm-run-all/index.js --parallel dev:web dev:api",
+    "dev:web": "npm --workspace client run dev",
+    "dev:api": "npm --workspace server run dev",
+    "build": "npm --workspaces run build && npm run build:electron-next && npm run build:electron-api",
+    "build:electron-next": "node scripts/prepare-electron-next.mjs",
+    "build:electron-api": "node node_modules/esbuild/bin/esbuild server/src/server.ts --bundle --platform=node --target=node20 --format=esm --outfile=server/dist-electron/server.mjs --banner:js=\"import { createRequire } from 'node:module';const require = createRequire(import.meta.url);\" --external:@prisma/client --external:.prisma/client",
+    "electron": "node node_modules/electron/cli.js electron/main.js",
+    "electron:dev": "node node_modules/wait-on/bin/wait-on http://localhost:3000/login http://localhost:4000/api/health && node node_modules/electron/cli.js electron/main.js",
+    "dist": "npm run build && node node_modules/electron-builder/cli.js --win nsis portable --publish never",
+    "lint": "npm --workspaces run lint",
+    "typecheck": "npm --workspaces run typecheck",
+    "install:local": "powershell -ExecutionPolicy Bypass -File scripts/install-local.ps1",
+    "start:local": "powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1",
+    "db:generate": "npm --workspace server run prisma:generate",
+    "db:migrate": "npm --workspace server run prisma:migrate",
+    "db:seed": "npm --workspace server run prisma:seed",
+    "db:backup:daily": "node scripts/backup-database.mjs daily",
+    "db:backup:weekly": "node scripts/backup-database.mjs weekly",
+    "db:backup:monthly": "node scripts/backup-database.mjs monthly"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.0",
+    "electron": "^42.3.0",
+    "electron-builder": "^26.8.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.2",
+    "wait-on": "^9.0.10"
+  },
+  "main": "electron/main.js",
+  "build": {
+    "appId": "com.mmsupermart.pos",
+    "productName": "M&M POS",
+    "copyright": "Copyright 2026 M&M SuperMart",
+    "asar": false,
+    "compression": "store",
+    "afterPack": "scripts/stamp-electron-icon.cjs",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "package.json",
+      "electron/main.js",
+      "electron/preload.js",
+      "electron/local-database.js",
+      "electron/sync-service.js",
+      "electron/backup-service.js",
+      "electron/google-drive-service.js",
+      "electron/recovery-service.js",
+      "electron/year-end-archive-service.js",
+      "build/**/*",
+      "client/package.json",
+      "client/scripts/**/*",
+      "client/.next/**/*",
+      "!client/.next/cache/**/*",
+      "client/public/**/*",
+      "server/package.json",
+      "server/dist/**/*",
+      "server/dist-electron/**/*",
+      "prisma/schema.prisma",
+      "node_modules/@prisma/client/**/*",
+      "node_modules/.prisma/client/**/*",
+      "node_modules/sql.js/**/*",
+      "!node_modules/.cache/**/*",
+      "!node_modules/**/.cache/**/*",
+      "!node_modules/**/*.map",
+      "!node_modules/**/*.tsbuildinfo",
+      "!node_modules/**/{CHANGELOG.md,CHANGELOG,README.md,README,readme.md,docs,doc,test,tests,example,examples}/**",
+      "!exports/**/*",
+      "!*.log",
+      "!*.png"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/@prisma/client",
+        "to": "app/node_modules/@prisma/client"
+      },
+      {
+        "from": "node_modules/.prisma/client",
+        "to": "app/node_modules/.prisma/client"
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}.${ext}"
+    },
+    "nsis": {
+      "artifactName": "${productName} Setup.${ext}",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "M&M POS"
+    },
+    "portable": {
+      "artifactName": "${productName} Portable.${ext}"
+    },
+    "npmRebuild": false
+  },
+  "dependencies": {
+    "@types/adm-zip": "^0.5.8",
+    "@types/sql.js": "^1.4.11",
+    "adm-zip": "^0.5.17",
+    "sql.js": "^1.14.1"
+  }
+}

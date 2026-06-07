@@ -1,0 +1,16 @@
+{
+  "name": "mm-pos-cpanel-deployment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "cPanel deployment helpers for M&M POS cloud API, PostgreSQL sync, Redis cache, and backups.",
+  "scripts": {
+    "build:api": "cd ../../server && npm run build",
+    "start:api": "cd ../../server && npm run start",
+    "backup:cloud": "node scripts/cloud-backup.mjs",
+    "pm2:start": "cd ../../server && pm2 start ../deploy/cpanel/ecosystem.config.cjs",
+    "pm2:restart": "cd ../../server && pm2 restart mm-pos-cloud-api"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0"
+  }
+}
