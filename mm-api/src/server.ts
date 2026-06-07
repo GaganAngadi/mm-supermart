@@ -52,7 +52,11 @@ app.use(morgan("dev"));
 app.use(requestContext);
 app.use(apiRateLimiter);
 
-app.get("/api/health", (_req, res) => res.json({ ok: true, service: "mm-supermart-api" }));
+const healthResponse = { ok: true, service: "mm-supermart-api" };
+
+app.get("/", (_req, res) => res.json(healthResponse));
+app.get("/health", (_req, res) => res.json(healthResponse));
+app.get("/api/health", (_req, res) => res.json(healthResponse));
 app.use("/api/auth", authRateLimiter, authRouter);
 app.use("/api/accounting", accountingRouter);
 app.use("/api/attendance", attendanceRouter);
