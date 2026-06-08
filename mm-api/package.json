@@ -4,16 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/run-bin.cjs tsx/dist/cli.mjs watch src/server.ts",
-    "build": "node scripts/run-bin.cjs typescript/bin/tsc",
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
     "start": "node dist/server.js",
-    "lint": "node scripts/run-bin.cjs eslint/bin/eslint.js src --ext .ts",
-    "typecheck": "node scripts/run-bin.cjs typescript/bin/tsc --noEmit",
-    "postinstall": "node scripts/run-bin.cjs prisma/build/index.js generate --schema ./prisma/schema.prisma",
-    "prisma:generate": "node scripts/run-bin.cjs prisma/build/index.js generate --schema ./prisma/schema.prisma",
-    "prisma:migrate": "node scripts/run-bin.cjs prisma/build/index.js migrate dev --schema ./prisma/schema.prisma --name init",
-    "prisma:deploy": "node scripts/run-bin.cjs prisma/build/index.js migrate deploy --schema ./prisma/schema.prisma",
-    "prisma:seed": "node scripts/run-bin.cjs tsx/dist/cli.mjs ./prisma/seed.ts"
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "prisma:generate": "prisma generate --schema ./prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema ./prisma/schema.prisma --name init",
+    "prisma:deploy": "prisma migrate deploy --schema ./prisma/schema.prisma",
+    "prisma:seed": "tsx ./prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
