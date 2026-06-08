@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { apiRequest } from "@/lib/api";
-import { saveSaleToLocalMaster } from "@/lib/electron-pos";
+import { saveSaleToLocalMaster } from "@/lib/local-pos";
 import { lookupBarcodeOnline, productToInput, saveProductToBackend, type PendingBarcodeProduct } from "@/lib/product-lookup";
 import { useBillingStore, type InvoiceRecord } from "@/lib/stores/billing-store";
 import { useCartStore } from "@/lib/stores/cart-store";

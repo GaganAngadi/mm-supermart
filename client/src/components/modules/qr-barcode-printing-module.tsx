@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { barcodeSvgToDataUrl, generateBarcodeSvg } from "@/lib/barcode";
-import { listDesktopPrinters, printQrLabelsDirect, type DesktopPrinter } from "@/lib/electron-pos";
+import { listDesktopPrinters, printQrLabelsDirect, type DesktopPrinter } from "@/lib/local-pos";
 import { useProductStore, type ProductRecord } from "@/lib/stores/product-store";
 import { formatCurrency } from "@/lib/utils";
 
@@ -266,7 +266,7 @@ export function BarcodeLabelPrintingModule() {
           <CardHeader className="gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle>Bulk Product Selection</CardTitle>
-              <p className="mt-1 text-sm text-muted-foreground">Select products, set copies, preview the exact label, then print silently through Electron.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Select products, set copies, preview the exact label, then print from the browser.</p>
             </div>
             <Input className="md:max-w-sm" icon={Search} placeholder="Search name, SKU, barcode" value={query} onChange={(event) => setQuery(event.target.value)} />
           </CardHeader>
@@ -380,7 +380,7 @@ export function BarcodeLabelPrintingModule() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="rounded-md border p-2"><span className="block text-muted-foreground">Printer</span><span className="font-semibold">{preferredPrinter?.displayName || preferredPrinter?.name || "Electron desktop required"}</span></div>
+                <div className="rounded-md border p-2"><span className="block text-muted-foreground">Printer</span><span className="font-semibold">{preferredPrinter?.displayName || preferredPrinter?.name || "Browser print"}</span></div>
                 <div className="rounded-md border p-2"><span className="block text-muted-foreground">Label</span><span className="font-semibold">50 x 25 mm</span></div>
                 <div className="rounded-md border p-2"><span className="block text-muted-foreground">Gap</span><span className="font-semibold">2 mm</span></div>
                 <div className="rounded-md border p-2"><span className="block text-muted-foreground">Copies</span><span className="font-semibold">{copyCount}</span></div>
@@ -400,7 +400,7 @@ export function BarcodeLabelPrintingModule() {
                 <Button variant="outline" onClick={prepareQueue} disabled={!selectedProducts.length || printing}><Copy className="size-4" /> Build Queue</Button>
                 <Button onClick={printQueue} disabled={!selectedProducts.length || printing}><Play className="size-4" /> Print Queue</Button>
               </div>
-              <Button variant="outline" className="w-full" onClick={() => window.mmPos?.printerAPI?.openSettings?.()}><Settings className="size-4" /> Windows Printer Settings</Button>
+              <Button variant="outline" className="w-full" onClick={() => window.print()}><Settings className="size-4" /> Browser Print Settings</Button>
             </CardContent>
           </Card>
         </div>

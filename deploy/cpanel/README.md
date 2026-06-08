@@ -1,20 +1,17 @@
 # M&M POS cPanel Cloud Deployment
 
-This deployment keeps the shop computer as the master POS system:
+This deployment runs the cloud API for the web POS system:
 
-1. Billing writes to local SQLite first.
-2. The local Electron sync queue sends changes to the cloud API in the background.
-3. PostgreSQL stores the cloud replica for recovery, backup, reports, and future multi-device access.
-4. Redis is used only for API cache acceleration. If Redis fails, billing and sync still continue.
+1. Billing and inventory screens call the hosted API.
+2. PostgreSQL stores the cloud replica for recovery, backup, reports, and future multi-device access.
+3. Redis is used only for API cache acceleration. If Redis fails, core API requests still continue.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-  Cashier["Cashier Billing"] --> SQLite["Local SQLite Database"]
-  SQLite --> Receipt["Thermal Receipt / Label Print"]
-  SQLite --> Queue["Local sync_queue"]
-  Queue --> API["cPanel Node.js Express API"]
+  Cashier["Cashier Billing"] --> API["cPanel Node.js Express API"]
+  API --> Receipt["Browser Receipt / Label Print"]
   API --> PG["cPanel PostgreSQL"]
   API --> Redis["cPanel Redis Cache"]
   PG --> Backup["Daily pg_dump Backup"]
@@ -80,17 +77,13 @@ pm2 start ../deploy/cpanel/ecosystem.config.cjs
 pm2 save
 ```
 
-## Electron POS Cloud Settings
+## POS Cloud Settings
 
-On every shop computer, keep billing local and configure only background sync:
+Set the web client API URL to the hosted API:
 
 ```env
-CLOUD_SYNC_URL=https://api.mmsupermart.in/api/sync
-CLOUD_SYNC_TOKEN=the-same-value-as-SYNC_SHARED_SECRET
-LOCAL_SQLITE_PATH=C:\MMSuperMart\data\pos.db
+NEXT_PUBLIC_API_URL=https://api.mmsupermart.in/api
 ```
-
-Checkout screens must never call PostgreSQL directly. They save to SQLite, create a sync queue record, print the bill, and return success.
 
 ## Sync Endpoints Already Used By The API
 

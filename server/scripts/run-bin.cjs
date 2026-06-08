@@ -16,7 +16,21 @@ const searchPaths = [
 let resolved;
 
 try {
-  resolved = require.resolve(binPath, { paths: searchPaths });
+  if (binPath.includes("/")) {
+    resolved = require.resolve(binPath, { paths: searchPaths });
+  } else {
+    const packageJsonPath = require.resolve(`${binPath}/package.json`, { paths: searchPaths });
+    const packageJson = require(packageJsonPath);
+    const bin = typeof packageJson.bin === "string"
+      ? packageJson.bin
+      : packageJson.bin?.[binPath] ?? Object.values(packageJson.bin ?? {})[0];
+
+    if (!bin) {
+      throw new Error(`Package ${binPath} does not define a bin entry.`);
+    }
+
+    resolved = path.resolve(path.dirname(packageJsonPath), bin);
+  }
 } catch (error) {
   console.error(`Unable to resolve ${binPath}. Run npm install first.`);
   process.exit(1);

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { apiRequest } from "@/lib/api";
-import { createLocalBackup, createYearEndArchive, deleteLocalBackup, getRecoveryStatus, listLocalBackups, restoreLocalBackup, uploadBackupToDrive, verifyLocalBackup } from "@/lib/electron-pos";
+import { createLocalBackup, createYearEndArchive, deleteLocalBackup, getRecoveryStatus, listLocalBackups, restoreLocalBackup, uploadBackupToDrive, verifyLocalBackup } from "@/lib/local-pos";
 
 type BackupRow = {
   name: string;

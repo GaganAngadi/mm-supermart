@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { barcodeSvgToDataUrl, generateBarcodeSvg } from "@/lib/barcode";
-import { listDesktopPrinters, printQrLabelsDirect, type DesktopPrinter } from "@/lib/electron-pos";
+import { listDesktopPrinters, printQrLabelsDirect, type DesktopPrinter } from "@/lib/local-pos";
 import { lookupBarcodeOnline, productToInput, saveProductToBackend, type PendingBarcodeProduct } from "@/lib/product-lookup";
 import { makeBarcode, useProductStore } from "@/lib/stores/product-store";
 import { formatCurrency } from "@/lib/utils";
