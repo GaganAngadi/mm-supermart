@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ../node_modules/next/dist/bin/next dev",
-    "build": "node ../node_modules/next/dist/bin/next build",
+    "dev": "node scripts/run-bin.cjs next dev",
+    "build": "node scripts/run-bin.cjs next build",
     "start": "node scripts/start-standalone.mjs",
-    "lint": "node ../node_modules/eslint/bin/eslint.js src --ext .ts,.tsx",
-    "typecheck": "node ../node_modules/typescript/bin/tsc --noEmit"
+    "lint": "node scripts/run-bin.cjs eslint src --ext .ts,.tsx",
+    "typecheck": "node scripts/run-bin.cjs typescript/bin/tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
