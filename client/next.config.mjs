@@ -1,9 +1,9 @@
-import type { NextConfig } from "next";
 import path from "node:path";
 
-const nextConfig: NextConfig = {
+/** @type {import("next").NextConfig} */
+const nextConfig = {
   output: "standalone",
-  outputFileTracingRoot: path.join(__dirname, ".."),
+  outputFileTracingRoot: path.join(process.cwd(), ".."),
   typedRoutes: true,
   experimental: {
     devtoolSegmentExplorer: false
