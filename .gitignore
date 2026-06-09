@@ -11,3 +11,6 @@ dev-server*.log
 coverage
 .DS_Store
 exports
+client/out
+dist-hosting
+mm-supermart-frontend-out.tar.gz

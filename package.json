@@ -14,6 +14,7 @@
     "dev:web": "npm --workspace client run dev",
     "dev:api": "npm --workspace server run dev",
     "build": "npm --workspaces run build",
+    "build:cpanel:frontend": "node scripts/build-cpanel-frontend.mjs",
     "lint": "npm --workspaces run lint",
     "typecheck": "npm --workspaces run typecheck",
     "install:local": "powershell -ExecutionPolicy Bypass -File scripts/install-local.ps1",

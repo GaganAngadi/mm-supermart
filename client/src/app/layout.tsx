@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PwaRegister } from "@/components/pwa-register";
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <Script src="/app-config.js" strategy="beforeInteractive" />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <ClientQueryProvider>
             <PwaRegister />

@@ -1,4 +1,5 @@
-const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "/api";
+const runtimeApiUrl = typeof window !== "undefined" ? window.__MM_SUPERMART_CONFIG__?.apiBaseUrl : undefined;
+const configuredApiUrl = runtimeApiUrl ?? process.env.NEXT_PUBLIC_API_URL ?? "/api";
 export const API_BASE_URL = configuredApiUrl.replace(/\/$/, "");
 
 export async function apiRequest<T>(path: string, options: RequestInit = {}) {
