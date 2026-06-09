@@ -1,4 +1,4 @@
-const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000/api";
+const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "/api";
 export const API_BASE_URL = configuredApiUrl.replace(/\/$/, "");
 
 export async function apiRequest<T>(path: string, options: RequestInit = {}) {
