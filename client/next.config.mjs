@@ -1,9 +1,9 @@
-import path from "node:path";
-
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  output: "standalone",
-  outputFileTracingRoot: path.join(process.cwd(), ".."),
+  output: "export",
+  images: {
+    unoptimized: true
+  },
   typedRoutes: true,
   eslint: {
     ignoreDuringBuilds: true
